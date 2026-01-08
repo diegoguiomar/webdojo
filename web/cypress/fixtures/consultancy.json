@@ -1,0 +1,44 @@
+{
+  "personal": {
+    "name": "Diego Guiomar",
+    "email": "diego.felgueiras@gmail.com",
+    "phone": "21979090561",
+    "consultancyType": "Individual",
+    "personType": "cpf",
+    "document": "46115963036",
+    "discoveryChannels": [
+      "Instagram",
+      "LinkedIn",
+      "Udemy",
+      "YouTube",
+      "Indicação de Amigo"
+    ],
+    "file": "./cypress/fixtures/document.pdf",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "techs": [
+      "Cypress",
+      "Selenium",
+      "WebDriverIO",
+      "Playwright",
+      "Robot Framerwork"
+    ],
+    "terms": true
+  },
+  "company": {
+    "name": "Diego Guiomar",
+    "email": "diego.felgueiras@gmail.com",
+    "phone": "21979090561",
+    "consultancyType": "In Company",
+    "personType": "cnpj",
+    "document": "37985550000117",
+    "discoveryChannels": [
+      "LinkedIn"
+    ],
+    "file": "./cypress/fixtures/document.pdf",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "techs": [
+      "Cypress"
+    ],
+    "terms": true
+  }
+}
