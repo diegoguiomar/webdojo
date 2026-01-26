@@ -1,0 +1,32 @@
+meta {
+  name: Delete user
+  type: http
+  seq: 6
+}
+
+delete {
+  url: http://localhost:3333/api/users/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 180
+}
+
+body:json {
+  {
+    "name": "Spiderman",
+    "email": "spider@stark.com", 
+    "password": "Abc_123"
+  }
+}
+
+vars:pre-request {
+  id: 1000
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
