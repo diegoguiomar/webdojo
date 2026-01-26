@@ -4,6 +4,6 @@ describe('Simulando Mouseover', () => {
 
         cy.contains('Isso é Mouseover!').should('not.exist')
         cy.get('[data-cy="instagram-link"]').realHover()
-        cy.contains('Isso é Mouseover!').should('exist')        
+        cy.contains('Isso é Mouseover!').should('exist')
     })
 })

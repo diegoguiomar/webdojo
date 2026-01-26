@@ -28,7 +28,7 @@ describe('Login', () => {
     })
   })
 
-  it('Não deve logar com senha incorreta', () => {
+  it('Não deve logar com senha inválida', () => {
     cy.start()
     cy.submitLoginForm('papito@webdojo.com', 'katana1123')
 

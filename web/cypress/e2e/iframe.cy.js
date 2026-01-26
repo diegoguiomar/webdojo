@@ -31,9 +31,9 @@ describe('iFrame', () => {
              */
             .as('iFramePlayer')
 
-            /**
-             * Agora podemos interagir com os elementos dentro do iframe usando o alias criado
-             */
+        /**
+         * Agora podemos interagir com os elementos dentro do iframe usando o alias criado
+         */
         cy.get('@iFramePlayer')
             .find('.play-button')
             .click()

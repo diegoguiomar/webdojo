@@ -47,12 +47,12 @@ describe('Validações de Alertas em JavaScrips', () => {
          * prompt = Função que quer simular
          * returns = Define o valor que será retornado quando o prompt for chamado
          */
-        cy.window().then((win) => { 
+        cy.window().then((win) => {
             cy.stub(win, 'prompt').returns('Diego Guiomar')
         })
 
         cy.on('window:alert', (msg) => {
-            expect(msg).to.eq('Olá Diego Guiomar! Boas-vindas ao WebDojo!') 
+            expect(msg).to.eq('Olá Diego Guiomar! Boas-vindas ao WebDojo!')
         })
 
         cy.contains('button', 'Mostrar Prompt').click()
