@@ -1,2 +1,1 @@
-# Arquivos de texto convertidos para LF (formato padrão do git.)
 *.prisma text eol=lf

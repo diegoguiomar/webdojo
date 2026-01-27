@@ -1,8 +1,6 @@
 import { getTodayFormattedDate } from '../support/utils.js'
 
 describe('Login', () => {
-
-  //Formatando data em JS
   it('Deve logar com sucesso', () => {
     cy.start()
     cy.submitLoginForm('papito@webdojo.com', 'katana123')
@@ -17,7 +15,6 @@ describe('Login', () => {
 
     cy.getCookie('login_date').should('exist')
 
-    //Validando o valor do cookie de data de login
     cy.getCookie('login_date').should((cookie) => {
       expect(cookie.value).to.eq(getTodayFormattedDate())
     })

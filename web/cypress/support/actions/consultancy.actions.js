@@ -1,11 +1,3 @@
-/**
- * Os testes abaixo foram feitos considerando a inexistência ou 
- * inutilização dos id's nas divs, labels, etc.
- * before(): Executa uma única vez antes de todos os testes
- * beforeEach(): Executa antes de cada teste
- * afterEach(): Executa depois de cada teste
- * after(): Executa uma única vez depois de todos os testes
- */
 Cypress.Commands.add('fillConsultancyForm', (form) => {
     cy.get('input[placeholder="Digite seu nome completo"]')
         .type(form.name)
@@ -15,26 +7,18 @@ Cypress.Commands.add('fillConsultancyForm', (form) => {
 
     cy.get('input[placeholder="(00) 00000-0000"]')
         .type(form.phone)
-    //.should('have.value', '(21) 97909-0561')
+        .invoke('val')
+        .then(maskPhone => {
+            expect(maskPhone).to.match(/^\(\d{2}\) \d{5}-\d{4}$/)
+            const phone = maskPhone.replace(/\D/g, '')
+            expect(phone).to.eq(form.phone)
+        })
 
-    /**
-     * Testando um campo select
-     * Buscar pela label
-     * Encontrar o select dentro da label
-     * Selecionar a opção desejada no teste
-     */
     cy.contains('Tipo de Consultoria')
         .parents()
         .find('select')
         .select(form.consultancyType)
 
-    /**
-     * Lidando com radio button para determinar o tipo de pessoa
-     * Buscar pelo nome da label
-     * Encontrar o input da label
-     * Determinar se será selecionado ou não
-     * Exibir resultado
-     */
     if (form.personType === 'cpf') {
         cy.contains('label', 'Pessoa Física')
             .find('input')
@@ -49,7 +33,12 @@ Cypress.Commands.add('fillConsultancyForm', (form) => {
             .parent()
             .find('input')
             .type(form.document)
-        // .should('have.value', '461.159.630-36')
+            .invoke('val')
+            .then(maskCpf => {
+                expect(maskCpf).to.match(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/)
+                const cpf = maskCpf.replace(/\D/g, '')
+                expect(cpf).to.eq(form.document)
+            })
     }
 
     if (form.personType === 'cnpj') {
@@ -66,28 +55,13 @@ Cypress.Commands.add('fillConsultancyForm', (form) => {
             .parent()
             .find('input')
             .type(form.document)
-        // .should('have.value', '461.159.630-36')
+            .invoke('val')
+            .then(maskCnpj => {
+                expect(maskCnpj).to.match(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/)
+                const cnpj = maskCnpj.replace(/\D/g, '')
+                expect(cnpj).to.eq(form.document)
+            })
     }
-
-
-    /**
-     * Interagindo com campo de CPF
-     * Quando o placeholder não for ideal para utilizar na automação, utilizar a label
-     * Buscar pelo input
-     * Inserir o documento sem pontuação (geralmente como é feito no backend)
-     * Exibir resultado utilizando a máscara determinada pelo front
-     */
-    // cy.contains('label', 'CPF')
-    //     .parent()
-    //     .find('input')
-    //     .type(fillConsultancyForm.document)
-    // // .should('have.value', '461.159.630-36')
-
-    /**
-     * Lidando com check box para selecionar todas as opções
-     * Ideal é criar uma variável que recebe um array com todas as opções
-     * Após isso, utilizar o forEach passando um parâmetro para representar as opções
-     */
 
     form.discoveryChannels.forEach((channel) => {
         cy.contains('label', channel)
@@ -96,20 +70,11 @@ Cypress.Commands.add('fillConsultancyForm', (form) => {
             .should('be.checked')
     })
 
-    /**
-    * Interagindo com upload de arquivos,
-    * Quando o elemento for escondido pelo front devemos utilizar o force:true dentro do selectFile
-     */
     cy.get('input[type="file"]')
         .selectFile(form.file, { force: true })
 
     cy.get('textarea[placeholder="Descreva mais detalhes sobre sua necessidade"]')
         .type(form.description)
-
-    /**
-     * Interagindo com array de tags e simulando teclado físico
-     * Exemplo: Para utilizar a tecla "Enter" devemos passar .type({enter})
-     */
 
     form.techs.forEach((tech) => {
         cy.get('input[placeholder="Digite uma tecnologia e pressione Enter"]')
@@ -122,18 +87,6 @@ Cypress.Commands.add('fillConsultancyForm', (form) => {
             .should('be.visible')
     })
 
-    // cy.contains('label', 'Tecnologias')
-    //     .parent()
-    //     .contains('span', 'WebDriverIO')
-    //     .find('button')
-    //     .click()
-
-    /**
-     * Lidando com check box de termos de uso
-     * Buscar pela label
-     * Encontrar o input dentro da label
-     * Selecionar o check box
-     */
     if (form.terms === true) {
         cy.contains('label', 'termos de uso')
             .find('input')

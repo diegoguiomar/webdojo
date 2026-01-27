@@ -7,16 +7,6 @@ describe('CEP', () => {
     })
 
     it('Deve validar a consulta de CEP', () => {
-
-        /**
-         * Simulando que o serviço do correio esteja OFFLINE
-         * intercept precisa passar 2 argumentos: 
-         * 1 - método HTTP (GET, POST, PUT, DELETE)
-         * 2 - Endpoint(Nesse caso é a URL completa da API)
-         * statusCode: Sempre que ocorrer uma requisição GET para o endpoint informado
-         * o statusCode 200 será retornado
-         * body: Mocka os dados que serão retornados pela API
-         *  */
         cy.intercept('GET', `https://viacep.com.br/ws/${address.cep}/json/`, {
             statusCode: 200,
             body: {

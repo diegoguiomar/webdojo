@@ -19,10 +19,6 @@ describe('Formulário de Consultoria', () => {
         cy.validateConsultancyModal()
     })
 
-    /**
-     * Verificando os campos obrigatórios do formulário
-     * As mensagens de erro e as cores
-     */
     it('Deve verificar os campos obrigatórios', () => {
         cy.submitConsultancyForm()
 

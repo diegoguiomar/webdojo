@@ -10,32 +10,26 @@ describe('Expert', () => {
     it('Deve manipular os atributos de elementos do HTML', () => {
         cy.get('#email').invoke('val', 'diego.felgueiras@gmail.com')
 
-        cy.get('#password').invoke('attr', 'type', 'text') //Altera o tipo do atributo type para texto
-            .type('123456') //Defina um valor para o atributo
+        cy.get('#password').invoke('attr', 'type', 'text') 
+            .type('123456') 
 
-        cy.get('#password').invoke('attr', 'name', 'senha') //Cria um atributo name com o valor senha
-            .should('have.attr', 'name') //verifica se o atributo name existe
+        cy.get('#password').invoke('attr', 'name', 'senha') 
+            .should('have.attr', 'name') 
 
-        cy.get('#password').invoke('removeAttr', 'name') //Remove o atributo name
-            .should('not.have.attr', 'name') //Verifica se o atributo name realmente foi excluído
+        cy.get('#password').invoke('removeAttr', 'name') 
+            .should('not.have.attr', 'name') 
 
         cy.contains('button', 'Entrar')
-            .invoke('hide') // Esconde o botão entrar
+            .invoke('hide')
             .should('not.be.visible')
 
         cy.contains('button', 'Entrar')
-            .invoke('show') // Exibe o botão entrar
+            .invoke('show')
             .should('be.visible')
     })
 
     it('Não deve logar com senha inválida', () => {
         cy.submitLoginForm('papito@webdojo.com', 'katana1123')
-
-        // cy.wait(2500)
-
-        // cy.document().then((doc) => { //Acessa o documento HTML
-        //     cy.writeFile('cypress/downloads/page.html', doc.documentElement.outerHTML) //Armazena o arquivo com o nome page.html no caminho determinado
-        // })
 
         cy.get('[data-sonner-toaster=true]')
             .should('be.visible')
@@ -45,9 +39,7 @@ describe('Expert', () => {
             .find('.title')
             .should('have.text', 'Acesso negado! Tente novamente.')
 
-        cy.wait(5000)
-
-        cy.get('@toast')
+        cy.get('@toast', { timeout: 5000 })
             .should('not.exist')
     })
 
@@ -71,9 +63,7 @@ describe('Expert', () => {
             .find('.title')
             .should('have.text', 'Acesso negado! Tente novamente.')
 
-        cy.wait(5000)
-
-        cy.get('@toast')
+        cy.get('@toast', { timeout: 5000 })
             .should('not.exist')
     })
 
